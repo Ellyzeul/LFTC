@@ -5,9 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style/index.css">
+    <link rel="stylesheet" type="text/css" href="./style/collapse.css">
     <title>LFTC</title>
 </head>
-<body>
-    <h1 class="color-white">Hello World</h1>
+<body class="color-white">
+    <h1>LFTC</h1>
+
+    <button type="button" class="collapsible">Expressões Regulares</button>
+    <div class="content">
+        <div id="regex" class="content-block">
+            <input type="text">
+        </div>
+    </div>
+    <div style="margin-bottom:10px;"></div>
+
+    <button type="button" class="collapsible">Gramáticas Regulares</button>
+    <div id="reggrammar" class="content">
+        <div class="content-block">
+            <p>RegGram</p>
+        </div>
+    </div>
+    <div style="margin-bottom:10px;"></div>
+
+    <button type="button" class="collapsible">Autômatos Finitos</button>
+    <div id="automata" class="content">
+        <div class="content-block">
+            <p>FinAuto</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="src/collapse.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gojs/release/go.js"></script>
 </body>
 </html>
