@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style/index.css">
     <link rel="stylesheet" type="text/css" href="./style/collapse.css">
+    <link rel="stylesheet" type="text/css" href="./style/canvas.css">
     <title>LFTC</title>
 </head>
-<body class="color-white">
+<body class="color-white" onload="init()">
     <h1>LFTC</h1>
 
     <button type="button" class="collapsible">Expressões Regulares</button>
@@ -29,12 +30,13 @@
 
     <button type="button" class="collapsible">Autômatos Finitos</button>
     <div id="automata" class="content">
-        <div class="content-block">
-            <p>FinAuto</p>
-        </div>
+        <button type="button" onclick="addElement()">Add element</button>
+        <div id="canvas"></div>
+        <input type="text">
     </div>
 
     <script type="text/javascript" src="src/collapse.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gojs/release/go.js"></script>
+    <script type="text/javascript" src="src/diagram.js"></script>
+    <script type="text/javascript" src="src/go.js"></script>
 </body>
 </html>
