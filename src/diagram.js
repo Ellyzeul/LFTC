@@ -1,11 +1,11 @@
-let nodeDataArray = [
-  { key: "q0", color: "yellow" },
-  { key: "q1", color: "yellow" }
-];
+let nodeDataArray = [];
 
 let linkDataArray = [
-  {to: "q1", from: "q0", color: "red"}
+  {to: "q1", from: "q0", color: "red", progress: "true", text: "a"},
+  {to: "q2", from: "q1", color: "red", text: "b"}
 ];
+
+let flagConnect = 0;
 
 function init(){
   let $ = go.GraphObject.make;
@@ -21,7 +21,19 @@ function init(){
           ),
           $(go.TextBlock, "text", {margin: 10},
               new go.Binding("text", "key")
-          )
+          ),
+
+          {
+            click: function(e, obj) { 
+              let nodeClicked = obj.part.data.key;
+              console.log("Clicked on " + nodeClicked); 
+            },
+            selectionChanged: function(part) {
+                let shape = part.elt(0);
+                shape.fill = part.isSelected ? "red" : "yellow";
+              }
+          }   
+
       );
 
   myDiagram.linkTemplate = 
@@ -48,3 +60,8 @@ function addElement(){
   nodeDataArray.push({ key: key, color: "yellow" });
   reload();
 }
+
+function connectElement(){
+  flagConnect = flagConnect ? 0 : 1; 
+  console.log(flagConnect);
+};
