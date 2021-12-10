@@ -12,10 +12,12 @@
 <body class="color-white" onload="init()">
     <h1>LFTC</h1>
 
+    <!-- RegEx -->
     <button type="button" class="collapsible">Expressões Regulares</button>
     <div class="content">
         <div id="regex" class="content-block">
-            <input type="text">
+            <input id="regex-input" type="text" placeholder="Expressão regular" style="margin: 20px 0 10px 0;width: 700px;">
+            <hr style="width: 700px;">
         </div>
     </div>
     <div style="margin-bottom:10px;"></div>
@@ -29,14 +31,20 @@
     <div style="margin-bottom:10px;"></div>
 
     <button type="button" class="collapsible">Autômatos Finitos</button>
-    <div id="automata" class="content">
-        <button type="button" onclick="addElement()">Add element</button>
+    <div id="automata" class="content automata-content">
+        <div id="automata-buttons">
+            <button type="button" onclick="addElement()">Add element</button>
+        </div>
         <div id="canvas"></div>
-        <input type="text">
+        <div id="automata-outcanvas">
+            <input type="text" placeholder="Insira uma string de teste">
+        </div>
+        
     </div>
 
     <script type="text/javascript" src="src/collapse.js"></script>
     <script type="text/javascript" src="src/diagram.js"></script>
     <script type="text/javascript" src="src/go.js"></script>
+    <script type="text/javascript" src="src/regex.js"></script>
 </body>
 </html>

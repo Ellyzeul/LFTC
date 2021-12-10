@@ -9,3 +9,13 @@ body {
 .color-white {
     color: white;
 }
+
+#automata-outcanvas {
+    display: flex;
+    flex-direction: column;
+}
+
+.automata-content {
+    height: 1000px !important;
+    overflow: scroll;
+}
