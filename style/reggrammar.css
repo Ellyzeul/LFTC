@@ -1,0 +1,9 @@
+table{
+    width: 100%; 
+    background-color: aquamarine;
+}
+
+td {
+    border-top: 1px solid black;
+    text-align: center;
+}

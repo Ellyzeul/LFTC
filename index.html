@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./style/index.css">
+    <link rel="stylesheet" type="text/css" href="./style/reggrammar.css">
     <link rel="stylesheet" type="text/css" href="./style/collapse.css">
     <link rel="stylesheet" type="text/css" href="./style/canvas.css">
     <title>LFTC</title>
@@ -25,7 +26,27 @@
     <button type="button" class="collapsible">Gramáticas Regulares</button>
     <div id="reggrammar" class="content">
         <div class="content-block">
-            <p>RegGram</p>
+            <table>
+                <tr>
+                    <th>title</th>
+                    <th></th>
+                    <th>title</th>
+                </tr>
+                <div class="tableRow">
+                    <tr>
+                        <td>test</td>
+                        <td>→</td>
+                        <td>test</td>
+                    </tr>
+                </div>
+
+                <tr>
+                    <td>test</td>
+                    <td>→</td>
+                    <td>test</td>
+                </tr>                
+            </table>
+            <button type="button" onclick="addRow()">addRow</button>
         </div>
     </div>
     <div style="margin-bottom:10px;"></div>
@@ -42,8 +63,9 @@
     </div>
 
     <script type="text/javascript" src="src/collapse.js"></script>
-    <script type="text/javascript" src="src/diagram2.js"></script>
     <script type="text/javascript" src="src/go.js"></script>
     <script type="text/javascript" src="src/regex.js"></script>
+    <script type="text/javascript" src="src/reggrammar.js"></script>
+    <script type="text/javascript" src="src/diagram2.js"></script>
 </body>
 </html>
