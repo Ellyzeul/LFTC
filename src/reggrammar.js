@@ -40,6 +40,70 @@ function tableToJson(){
 
     result = buildJson(arr);
     
-    console.log(result);
-    //return JSON.parse(result);
+    return result
+}
+
+const grammarInterpreter = (grammar, string, index = 0, name = 'S') => {
+    const nodes = grammar.filter(node =>
+        node.name == name &&
+        (node.receives == string[index] || node.receives == '')
+    )
+
+    for(i = 0; i < nodes.length; i++) {
+        if((typeof string[index] === 'undefined') && (nodes[i].goesTo === null)) return true
+        if((typeof string[index] === 'undefined') || (nodes[i].goesTo === null)) return false
+
+        if(grammarInterpreter(grammar, string, index+1, nodes[i].goesTo)) return true
+    }
+
+    return false
+}
+
+const createGrammarTestInput = () => {
+    const div = document.createElement('div')
+    div.className = 'grammar-tests'
+
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.placeholder = "Insira string de teste"
+    input.style.width = "675px"
+    input.addEventListener('input', e => {
+        e.target.style.backgroundColor = 'white'
+        e.target.style.border = '1px solid gray'
+        e.target.style.borderRadius = '2px'
+    })
+
+    const button = document.createElement('button')
+    button.innerHTML = '+'
+    button.addEventListener('click', e => newGrammarTest(e))
+
+    div.appendChild(input)
+    div.appendChild(button)
+    
+    document.querySelector('#reggrammar').appendChild(div)
+}
+
+const newGrammarTest = ev => {
+    e = ev.target
+
+    createGrammarTestInput()
+
+    e.parentElement.removeChild(e)
+}
+
+createGrammarTestInput()
+
+const testGrammar = () => {
+    const grammar = tableToJson()
+    const tests = document.querySelectorAll('#reggrammar > .grammar-tests')
+
+    tests.forEach(div => {
+        const input = div.children[0]
+        const test = input.value
+
+        console.log(grammar)
+        console.log(test)
+
+        input.style.backgroundColor = grammarInterpreter(grammar, test) ? "lightgreen" : "salmon"
+    })
 }

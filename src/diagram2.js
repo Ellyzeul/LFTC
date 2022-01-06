@@ -41,6 +41,8 @@ function init(){
             shadowOffset: new go.Point(0, 1),
             shadowColor: "rgba(0, 0, 0, .14)"
         },
+        new go.Binding("text", "text"),
+        new go.Binding("key", "key"),
         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
         $(go.Shape, "Circle", { 
             fill: "yellow",
@@ -115,7 +117,6 @@ function init(){
     clickTool.stopTool()
   }
 }
-
 
 function reload(){
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);

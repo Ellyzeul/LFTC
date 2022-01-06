@@ -19,7 +19,7 @@ const resetInput = input => {
 
 const createRegexTestInput = () => {
     const div = document.createElement('div')
-    div.className = 'tegex-tests'
+    div.className = 'regex-tests'
 
     const input = document.createElement('input')
     input.type = 'text'

@@ -19,3 +19,7 @@ body {
     height: 1000px !important;
     overflow: scroll;
 }
+
+.grammar-tests {
+    margin-left: 80px;
+}
