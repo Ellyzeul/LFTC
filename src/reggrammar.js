@@ -1,5 +1,6 @@
+const table = document.getElementById("table-grammar");
+
 function addRow(){
-    let table = document.getElementById("table-grammar");
     let row = document.createElement('tr');
     let html = "<td>" + "<input type='text'>"+ "</td><td>" + "→" + "</td><td>" + "<input type='text'>"+ "</td>";
     row.innerHTML = html;
@@ -8,12 +9,15 @@ function addRow(){
 
 
 function deleteRow(){
-    let table = document.getElementById("table-grammar");
     table.removeChild(table.lastChild);
 }
 
 
-function textToJson(){
-    let tabble = document.getElementById("table-grammar");
-    
+function tableToJson(){
+    let arr = new Array();
+    for(let i=1; i<table.rows.length;i++){
+        arr.push({"LHS": table.rows[i].cells[0].firstChild.value, "RHS": table.rows[i].cells[2].firstChild.value.split("|")});
+    }
+    console.log(arr);
+    //return JSON.parse(arr);
 }
