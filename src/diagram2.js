@@ -140,15 +140,6 @@ function addElement(){
   alert("Os nomes dos elementos podem ser trocados. Basta clicar sobre o nome que deseja alterar"); 
 }
 
-
-
-
-/*
-function connectElement(){
-  flagConnect = flagConnect ? 0 : 1; 
-  console.log(flagConnect);
-};*/
-
 function diagramToJson(){
   return JSON.parse(myDiagram.model.toJson())
 }

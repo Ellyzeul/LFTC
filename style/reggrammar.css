@@ -1,16 +1,22 @@
-table{
+table {
     top: 0;
     width: 100%; 
     font-size: 20px;
-    background-color: aquamarine;
+    background-color: #cec8c8;
+}
+
+th {
+    color: rgb(31, 27, 43);
 }
 
 td {
-    border-top: 1px solid black;
+    border-top: 1px solid #ffff;
     text-align: center;
 }
 
-
+input {
+    width: 50%;
+}
 
 /*
 #table-area{
