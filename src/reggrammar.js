@@ -2,7 +2,14 @@ const table = document.getElementById("table-grammar");
 
 function addRow(){
     let row = document.createElement('tr');
-    let html = "<td>" + "<input type='text'>"+ "</td><td>" + "→" + "</td><td>" + "<input type='text'>"+ "</td>";
+    let html = `
+        <td>
+            <input type='text'>
+        </td>
+        <td>→</td>
+            <td><input type='text'>
+        </td>
+    `;
     row.innerHTML = html;
     table.appendChild(row);
 }
@@ -19,15 +26,13 @@ function buildJson(arr){
         for(let k=0; k<arr[j].RHS.length;k++){
             let goesTo = arr[j].RHS[k][1];
             let receives = arr[j].RHS[k][0];
-            if(goesTo == null && receives == null){
-                receives = "";
-                goesTo = null;
-            }
+            if(typeof receives == 'undefined') receives = "";
+            if(typeof goesTo == 'undefined') goesTo = null;
+
             result.push({"name": arr[j].LHS, "receives": receives, "goesTo": goesTo});
         }
     }  
-    return result;  
-    //return JSON.parse(result);
+    return result;
 }
 
 function tableToJson(){
@@ -35,7 +40,10 @@ function tableToJson(){
     let result;
     
     for(let i=1; i<table.rows.length;i++){
-        arr.push({"LHS": table.rows[i].cells[0].firstChild.value, "RHS": table.rows[i].cells[2].firstChild.value.split("|")});
+        arr.push({
+            "LHS": table.rows[i].cells[0].firstChild.value, 
+            "RHS": table.rows[i].cells[2].firstChild.value.split("|")
+        });
     }
 
     result = buildJson(arr);
@@ -50,7 +58,7 @@ const grammarInterpreter = (grammar, string, index = 0, name = 'S') => {
     )
 
     for(i = 0; i < nodes.length; i++) {
-        if((typeof string[index] === 'undefined') && (nodes[i].goesTo === null)) return true
+        if((index >= string.length - 1) && (nodes[i].goesTo === null)) return true
         if((typeof string[index] === 'undefined') || (nodes[i].goesTo === null)) return false
 
         if(grammarInterpreter(grammar, string, index+1, nodes[i].goesTo)) return true
@@ -96,13 +104,11 @@ createGrammarTestInput()
 const testGrammar = () => {
     const grammar = tableToJson()
     const tests = document.querySelectorAll('#reggrammar > .grammar-tests')
+    console.log(grammar)
 
     tests.forEach(div => {
         const input = div.children[0]
         const test = input.value
-
-        console.log(grammar)
-        console.log(test)
 
         input.style.backgroundColor = grammarInterpreter(grammar, test) ? "lightgreen" : "salmon"
     })
