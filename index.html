@@ -44,7 +44,7 @@
             <hr style="width=0">
             <div>
                 <button type="button" onclick="addRow()">Nova linha</button>
-                <button type="button" onclick="deleteRow()">Apagar última linha</button>
+                <button type="button" onclick="deleteRow()">Apagar última linha</button>            
                 <button type="button" onclick="testGrammar()">Testar gramática</button>
             </div>
         </div>
@@ -54,11 +54,30 @@
 
     <button type="button" class="collapsible">Autômatos Finitos</button>
     <div id="automata" class="content automata-content">
-        <!-- <button type="button" onclick="addElement()">Add element</button> -->
-        <!-- <button type="button" onclick="connectElement()">Connect elements</button> -->
-        <div id="canvas"></div>
-        <div id="automata-outcanvas">
-            <input type="text" placeholder="Insira uma string de teste">
+        <div class="content-block" id="table-area">
+            <table id="table-finite-automata">
+                <tr>
+                    <th>test</th>
+                    <th></th>
+                    <th>test</th>
+                </tr>
+                <div class="tableRow">
+                    <tr>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </div>
+              
+            </table>
+            <hr style="width=0">
+            <div>
+                <button type="button" onclick="addRowFA()">Nova linha</button>
+                <button type="button" onclick="deleteRowFA()">Apagar última linha</button>
+                <button type="button" onclick="addcolumnFA()">Nova coluna</button>
+                <button type="button" onclick="deletecolumnFA()">Apagar última coluna</button>    
+                <button type="button" onclick="testGrammarFA()">Testar gramática</button>
+            </div>
         </div>
         
     </div>
@@ -67,6 +86,6 @@
     <script type="text/javascript" src="src/go.js"></script>
     <script type="text/javascript" src="src/regex.js"></script>
     <script type="text/javascript" src="src/reggrammar.js"></script>
-    <script type="text/javascript" src="src/diagram2.js"></script>
+    <script type="text/javascript" src="src/finite_automata.js"></script>
 </body>
 </html>

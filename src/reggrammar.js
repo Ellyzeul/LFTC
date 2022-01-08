@@ -22,12 +22,19 @@ function deleteRow(){
 function buildJson(arr){
     let result = new Array();
 
+    console.log(arr);
+    
     for(let j=0; j<arr.length;j++){
         for(let k=0; k<arr[j].RHS.length;k++){
             let goesTo = arr[j].RHS[k][1];
             let receives = arr[j].RHS[k][0];
+
+            console.log(goesTo);
+
             if(typeof receives == 'undefined') receives = "";
             if(typeof goesTo == 'undefined') goesTo = null;
+
+            console.log(goesTo);
 
             result.push({"name": arr[j].LHS, "receives": receives, "goesTo": goesTo});
         }
@@ -41,8 +48,8 @@ function tableToJson(){
     
     for(let i=1; i<table.rows.length;i++){
         arr.push({
-            "LHS": table.rows[i].cells[0].firstChild.value, 
-            "RHS": table.rows[i].cells[2].firstChild.value.split("|")
+            "LHS": table.rows[i].cells[0].children[0].value, 
+            "RHS": table.rows[i].cells[2].children[0].value.split("|")
         });
     }
 
@@ -58,7 +65,7 @@ const grammarInterpreter = (grammar, string, index = 0, name = 'S') => {
     )
 
     for(i = 0; i < nodes.length; i++) {
-        if((index >= string.length - 1) && (nodes[i].goesTo === null)) return true
+        if((typeof string[index] === 'undefined') && (nodes[i].goesTo === null)) return true
         if((typeof string[index] === 'undefined') || (nodes[i].goesTo === null)) return false
 
         if(grammarInterpreter(grammar, string, index+1, nodes[i].goesTo)) return true

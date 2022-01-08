@@ -113,13 +113,13 @@ function init(){
     node.text = `q${node.key}`
     nodeArray.push(node)
     console.log(nodeArray)
-
+    
     clickTool.stopTool()
   }
 }
 
 function reload(){
-  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+  myDiagram.model = new go.GraphLinksModel(nodeArray, linkDataArray);
 }
 
 
