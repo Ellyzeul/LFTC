@@ -57,7 +57,7 @@
         <div class="content-block" id="table-areaAF">
             <table id="table-finite-automata">
                 <tr>
-                    <th></th>
+                    <th>Estados ↓ \ Caracteres →</th>
                     <th><input type="text"></th>
                     <th><input type="text"></th>
                 </tr>
@@ -76,10 +76,11 @@
                 <button type="button" onclick="deleteRowFA()">Apagar última linha</button>
                 <button type="button" onclick="addcolumnFA()">Nova coluna</button>
                 <button type="button" onclick="deletecolumnFA()">Apagar última coluna</button>    
-                <button type="button" onclick="tableToJsonFA()">Testar gramática</button>
+                <button type="button" onclick="tableToJsonFA()">Testar autômato</button>
             </div>
+            <hr style="width: 0;">
+            <input type="text" id="automata-test-input" placeholder="Insira aqui sua string de teste">
         </div>
-        
     </div>
 
     <script type="text/javascript" src="src/collapse.js"></script>

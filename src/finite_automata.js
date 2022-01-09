@@ -5,6 +5,7 @@ const automataInterpreter = (automata, string, index=0, name='q0') => {
     )
 
     for(i = 0; i < states.length; i++) {
+
         if((index >= string.length -1) && (states[i].final === true)) return true
         if((index > string.length -1) || (states[i].goesTo === null)) return false
 
@@ -68,7 +69,18 @@ function tableToJsonFA(){
         }
     }
 
-    console.log(arr);
+    return arr
+}
+
+const testAutomota = () => {
+    const input = document.querySelector('#automata-test-input')
+
+    const automata = tableToJsonFA()
+    const test = input.value
+
+    const response = automataInterpreter(automata, test)
+
+    input.style.backgroundColor = response.validate ? 'lightgreen' : 'salmon'
 }
 
 
