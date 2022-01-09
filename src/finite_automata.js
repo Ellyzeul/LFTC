@@ -55,17 +55,23 @@ function tableToJsonFA(){
     let arr = new Array();
     let columns = tableFA.rows[0].cells.length;
     let rows = tableFA.rows.length;
+    let k=0;
 
     for(let i=1;i<columns;i++){
         for(let j=1;j<rows;j++){
             let name = tableFA.rows[j].cells[0].children[0].value.split('*');
             let receives = tableFA.rows[0].cells[i].children[0].value;
-            let goesTo = tableFA.rows[j].cells[i].children[0].value;
+            let goesTo = tableFA.rows[j].cells[i].children[0].value.split(',');
 
             let final = name.length == 2 ? true : false;
-        
 
-            arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo, "final": final});
+            while(k<goesTo.length){
+                k++;
+                arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo[goesTo.length-k], "final": final});
+            };
+
+            k=0;
+            //arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo, "final": final});
         }
     }
 
