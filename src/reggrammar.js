@@ -21,20 +21,14 @@ function deleteRow(){
 
 function buildJson(arr){
     let result = new Array();
-
-    console.log(arr);
     
     for(let j=0; j<arr.length;j++){
         for(let k=0; k<arr[j].RHS.length;k++){
             let goesTo = arr[j].RHS[k][1];
             let receives = arr[j].RHS[k][0];
 
-            console.log(goesTo);
-
             if(typeof receives == 'undefined') receives = "";
             if(typeof goesTo == 'undefined') goesTo = null;
-
-            console.log(goesTo);
 
             result.push({"name": arr[j].LHS, "receives": receives, "goesTo": goesTo});
         }
@@ -65,8 +59,8 @@ const grammarInterpreter = (grammar, string, index = 0, name = 'S') => {
     )
 
     for(i = 0; i < nodes.length; i++) {
-        if((typeof string[index] === 'undefined') && (nodes[i].goesTo === null)) return true
-        if((typeof string[index] === 'undefined') || (nodes[i].goesTo === null)) return false
+        if((index >= string.length -1) && (nodes[i].goesTo === null)) return true
+        if((index > string.length -1) || (nodes[i].goesTo === null)) return false
 
         if(grammarInterpreter(grammar, string, index+1, nodes[i].goesTo)) return true
     }
@@ -111,7 +105,6 @@ createGrammarTestInput()
 const testGrammar = () => {
     const grammar = tableToJson()
     const tests = document.querySelectorAll('#reggrammar > .grammar-tests')
-    console.log(grammar)
 
     tests.forEach(div => {
         const input = div.children[0]
