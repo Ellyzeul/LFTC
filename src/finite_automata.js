@@ -1,65 +1,30 @@
 const automataInterpreter = (automata, string, index=0, name='q0') => {
-    const states = automata.filter(state => 
+    const params = {
+        automata: automata,
+        string: string,
+        index: index,
+        name: name
+    }
+    const states = params.automata.filter(state => 
         state.name == name &&
-        (state.receives == string[index] || state.receives == '')
+        (state.receives == params.string[params.index] || state.receives == '')
     )
+    let nextState
 
-    console.log("Recebeu" + string[index])
-    console.log(states)
     for(i = 0; i < states.length; i++) {
+        nextState = params.automata.filter(state => state.name == states[i].goesTo)
+        if(nextState.length == 0) return false
 
-        if((index >= string.length -1) && (states[i].final === true)) return true
-        if((index > string.length -1) || (states[i].goesTo === null)) return false
+        if((params.index >= string.length -1) && (nextState[0].final === true)) return true
+        if((typeof params.string[params.index] === 'undefined') || (states[i].goesTo === null)) return false
 
-        if(automataInterpreter(automata, string, index+1, states[i].goesTo)) return true
+        if(automataInterpreter(params.automata, params.string, params.index+1, states[i].goesTo)) return true
     }
 
     return false
 }
 const tableFA = document.getElementById("table-finite-automata");
-/*
-function addRowFA(){
-    let row = document.createElement('tr');
-    let html = `
-        <td>
-            <input type='text'>
-        </td>
-        <td>
-            <input type='text'>
-        </td>
-            <td><input type='text'>
-        </td>
-    `;
-    row.innerHTML = html;
-    tableFA.appendChild(row);
-}
 
-function deleteRowFA(){
-    tableFA.removeChild(tableFA.lastChild);
-}
- 
-function addcolumnFA(){
-    let rows = tableFA.rows.length;
-    let column = document.createElement('th');
-
-    tableFA.appendChild(column);
-    
-    let cells = '';
-
-    for(let i=0; i<rows; i++){
-        cells = cells + ;
-    };
-}
-function addcolumnFA() {
-    [...document.querySelectorAll('#table-finite-automata tr')].forEach((row, i) => {
-        const input = document.createElement("input")
-        input.setAttribute('type', 'text')
-        const cell = document.createElement(i ? "td" : "th")
-        cell.appendChild(input)
-        row.appendChild(cell)
-    });
- }
- */
 function addcolumnFA() {
     let row = tableFA.getElementsByTagName('tr');
     for(i=0;i<row.length;i++){
@@ -115,7 +80,6 @@ function tableToJsonFA(){
             };
 
             k=0;
-            //arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo, "final": final});
         }
     }
 
@@ -127,8 +91,7 @@ const testAutomota = () => {
 
     const automata = tableToJsonFA()
     const test = input.value
-
-    console.log(automata)
+    
     const response = automataInterpreter(automata, test)
 
     input.style.backgroundColor = response ? 'lightgreen' : 'salmon'
