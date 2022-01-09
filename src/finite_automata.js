@@ -4,6 +4,8 @@ const automataInterpreter = (automata, string, index=0, name='q0') => {
         (state.receives == string[index] || state.receives == '')
     )
 
+    console.log("Recebeu" + string[index])
+    console.log(states)
     for(i = 0; i < states.length; i++) {
 
         if((index >= string.length -1) && (states[i].final === true)) return true
@@ -67,7 +69,7 @@ function tableToJsonFA(){
 
             while(k<goesTo.length){
                 k++;
-                arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo[goesTo.length-k], "final": final});
+                arr.push({"name": name[name.length-1], "receives": receives, "goesTo": goesTo[goesTo.length-k] != '' ? goesTo[goesTo.length-k] : null, "final": final});
             };
 
             k=0;
@@ -84,9 +86,10 @@ const testAutomota = () => {
     const automata = tableToJsonFA()
     const test = input.value
 
+    console.log(automata)
     const response = automataInterpreter(automata, test)
 
-    input.style.backgroundColor = response.validate ? 'lightgreen' : 'salmon'
+    input.style.backgroundColor = response ? 'lightgreen' : 'salmon'
 }
 
 
