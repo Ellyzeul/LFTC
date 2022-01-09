@@ -1,5 +1,5 @@
 const tableFA = document.getElementById("table-finite-automata");
-
+/*
 function addRowFA(){
     let row = document.createElement('tr');
     let html = `
@@ -20,8 +20,6 @@ function deleteRowFA(){
     tableFA.removeChild(tableFA.lastChild);
 }
  
-
-/*
 function addcolumnFA(){
     let rows = tableFA.rows.length;
     let column = document.createElement('th');
@@ -31,9 +29,53 @@ function addcolumnFA(){
     let cells = '';
 
     for(let i=0; i<rows; i++){
-        cells = cells + 
+        cells = cells + ;
+    };
+}
+function addcolumnFA() {
+    [...document.querySelectorAll('#table-finite-automata tr')].forEach((row, i) => {
+        const input = document.createElement("input")
+        input.setAttribute('type', 'text')
+        const cell = document.createElement(i ? "td" : "th")
+        cell.appendChild(input)
+        row.appendChild(cell)
+    });
+ }
+ */
+function addcolumnFA() {
+    let row = tableFA.getElementsByTagName('tr');
+    for(i=0;i<row.length;i++){
+      row[i].innerHTML = row[i].innerHTML + "<td><input type='text'></td>";
     }
-}*/
+}
+
+function deletecolumnFA(){
+    let allRows = tableFA.rows;
+    for (let i=0; i<allRows.length; i++) {
+        if (allRows[i].cells.length > 1) {
+            allRows[i].deleteCell(-1);
+        }
+    }
+}
+
+function addRowFA() {
+    let row = tableFA.getElementsByTagName('tr');
+    row = row[row.length-1].outerHTML;
+    tableFA.innerHTML = tableFA.innerHTML + row;
+    row = tableFA.getElementsByTagName('tr');
+    row = row[row.length-1].getElementsByTagName('td');
+
+    for(i=0;i<row.length;i++){
+      row[i].innerHTML = "<td><input type='text'></td>";
+    }
+  }
+
+function deleteRowFA(){
+    let row = tableFA.getElementsByTagName('tr');
+        if(row.length!='1'){
+            row[row.length - 1].outerHTML='';
+        }
+}
 
 function tableToJsonFA(){
     let arr = new Array();
