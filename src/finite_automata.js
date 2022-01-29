@@ -25,6 +25,77 @@ const automataInterpreter = (automata, string, index=0, name='q0') => {
     return false
 }
 
+const automataStepByStep = (automata, string, index=0, name='q0') => {
+    if(typeof string[index] == 'undefined') return [{
+        message: "Fim da string atingido... Voltando",
+        bool: false,
+        code: 5
+    }]
+
+    const states = automata.filter(state => 
+        (state.receives === string[index] || state.receives === '')
+        && state.name === name
+    )
+    const length = states.length
+    const strLen = string.length
+    let nextStates
+    let nextLength
+    let result = []
+
+    for(let i = 0; i < length; i++) {
+        nextStates = automata.filter(next => next.name === states[i].goesTo)
+        nextLength = nextStates.length
+        if(nextLength === 0) {
+            result = [{
+                message: "Não há próximos estados... Voltando",
+                state: states[i],
+                bool: false,
+                code: 3
+            }, ...result]
+            return result
+        }
+
+        for(let j = 0; j < nextLength; j++) {
+            if(nextStates[j].final && index === strLen-1) {
+                result = [{
+                    message: "Final da string alcançado em um estado final, string valida!!",
+                    state: states[i],
+                    next: nextStates[j],
+                    code: 0,
+                    bool: true
+                }, ...result]
+                return result
+            }
+            result = automataStepByStep(automata, string, index+1, nextStates[j].name)
+            if(result[0].bool) return [{
+                state: states[i],
+                next: nextStates[j],
+                bool: true,
+                code: 1
+            }, ...result]
+            else result = [{
+                state: states[i],
+                next: nextStates[j],
+                code: 1
+            }, ...result]
+        }
+
+    }
+
+    if(length === 0) return [...result, {
+        message:"Nenhum estado encontrado... Voltando",
+        receives: string[index],
+        bool: false,
+        code: 4
+    }]
+    else return [...result, {
+        message:"Não há outro estado a seguir... Sem mais ramificações, "+(index===0?"string inválida":"voltando"),
+        receives: string[index],
+        bool: false,
+        code: 6
+    }]
+}
+
 const tableFA = document.getElementById("table-finite-automata");
 
 function addcolumnFA() {
@@ -95,7 +166,6 @@ const testAutomota = () => {
 
     inputs.forEach(input => {
         const test = input.value
-        console.log(automata)
         
         const response = automataInterpreter(automata, test)
     
@@ -122,8 +192,58 @@ const createAutomataTestInput = () => {
     button.innerHTML = '+'
     button.addEventListener('click', e => newAutomataTest(e))
 
+    const stepButton = document.createElement('button')
+    stepButton.innerHTML = 'step'
+    stepButton.addEventListener('click', e => {
+        const steps = automataStepByStep(
+            tableToJsonFA(),
+            e.target.parentElement.children[0].value
+        )
+
+        let htmlSteps = "<ul>"
+        steps.forEach(step => {
+            switch(step.code) {
+                case 0:
+                    htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => Recebeu: ${step.state.receives} => Próximo estado: ${step.next.name} => ${step.message}</li>`
+                    break
+                case 1:
+                    htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => Recebeu: ${step.state.receives} => Próxima chamada para: ${step.next.name}</li>`
+                    break
+                case 3:
+                    htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => ${step.message}</li>`
+                    break
+                case 4:
+                case 6:
+                    htmlSteps = `${htmlSteps}<li>Recebeu: ${step.receives} => ${step.message}</li>`
+                    break
+                case 5:
+                    htmlSteps = `${htmlSteps}<li>${step.message}</li>`
+                    break
+            }
+        })
+        const display = document.createElement('div')
+        display.className = "modal"
+        display.id = "step-by-step"
+
+        const content = document.createElement('div')
+        content.className = "modal-content"
+        content.innerHTML = htmlSteps
+
+        const close = document.createElement('span')
+        close.id = "close-modal"
+        close.innerHTML = "&times ou Esc"
+        close.onclick = ev => {
+            document.body.removeChild(ev.target.parentElement.parentElement)
+        }
+
+        content.prepend(close)
+        display.appendChild(content)
+        document.body.appendChild(display)
+    })
+
     div.appendChild(input)
     div.appendChild(button)
+    div.appendChild(stepButton)
     
     document.querySelector('#table-areaAF').appendChild(div)
 }
@@ -137,7 +257,12 @@ const newAutomataTest = ev => {
     e.parentElement.removeChild(e)
 }
 
-
+document.onkeydown = e => {
+    if(e.which == 27) {
+        const closeModal = document.querySelector("#close-modal")
+        closeModal != null ? closeModal.click() : null
+    }
+}
 /*
 [
   {name:'q0', receives:'a', goesTo:'q1'},

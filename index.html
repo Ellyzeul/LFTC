@@ -8,77 +8,80 @@
     <link rel="stylesheet" type="text/css" href="./style/reggrammar.css">
     <link rel="stylesheet" type="text/css" href="./style/collapse.css">
     <link rel="stylesheet" type="text/css" href="./style/canvas.css">
+    <link rel="stylesheet" type="text/css" href="./style/modal.css">
     <title>LFTC</title>
 </head>
-<body class="color-white">
-    <h1>LFTC</h1>
+<body>
+    <div id="main-content" class="color-white">
+        <h1>LFTC</h1>
 
-    <!-- RegEx -->
-    <button type="button" class="collapsible">Expressões Regulares</button>
-    <div class="content">
-        <div id="regex" class="content-block">
-            <input id="regex-input" type="text" placeholder="Expressão regular" style="margin: 20px 0 10px 0;width: 700px;">
-            <hr style="width: 700px;">
-        </div>
-    </div>
-    <div style="margin-bottom:10px;"></div>
-
-    <button type="button" class="collapsible">Gramáticas Regulares</button>
-    <div id="reggrammar" class="content">
-        <div class="content-block" id="table-area">
-            <table id="table-grammar">
-                <tr>
-                    <th>LHS</th>
-                    <th></th>
-                    <th>RHS</th>
-                </tr>
-                <div class="tableRow">
-                    <tr>
-                        <td><input type="text"></td>
-                        <td>→</td>
-                        <td><input type="text"></td>
-                    </tr>
-                </div>
-              
-            </table>
-            <hr style="width=0">
-            <div>
-                <button type="button" onclick="addRow()">Nova linha</button>
-                <button type="button" onclick="deleteRow()">Apagar última linha</button>            
-                <button type="button" onclick="testGrammar()">Testar gramática</button>
+        <!-- RegEx -->
+        <button type="button" class="collapsible">Expressões Regulares</button>
+        <div class="content">
+            <div id="regex" class="content-block">
+                <input id="regex-input" type="text" placeholder="Expressão regular" style="margin: 20px 0 10px 0;width: 700px;">
+                <hr style="width: 700px;">
             </div>
         </div>
-        <hr>
-    </div>
-    <div style="margin-bottom:10px;"></div>
+        <div style="margin-bottom:10px;"></div>
 
-    <button type="button" class="collapsible">Autômatos Finitos</button>
-    <div id="automata" class="content automata-content">
-        <div class="content-block" id="table-areaAF">
-            <table id="table-finite-automata">
-                <tr>
-                    <th>Estados ↓ \ Caracteres →</th>
-                    <th><input type="text"></th>
-                    <th><input type="text"></th>
-                </tr>
-                <div class="tableRowAF">
+        <button type="button" class="collapsible">Gramáticas Regulares</button>
+        <div id="reggrammar" class="content">
+            <div class="content-block" id="table-area">
+                <table id="table-grammar">
                     <tr>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <th>LHS</th>
+                        <th></th>
+                        <th>RHS</th>
                     </tr>
+                    <div class="tableRow">
+                        <tr>
+                            <td><input type="text"></td>
+                            <td>→</td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </div>
+                
+                </table>
+                <hr style="width=0">
+                <div>
+                    <button type="button" onclick="addRow()">Nova linha</button>
+                    <button type="button" onclick="deleteRow()">Apagar última linha</button>            
+                    <button type="button" onclick="testGrammar()">Testar gramática</button>
                 </div>
-              
-            </table>
-            <hr style="width=0">
-            <div>
-                <button type="button" onclick="addRowFA()">Nova linha</button>
-                <button type="button" onclick="deleteRowFA()">Apagar última linha</button>
-                <button type="button" onclick="addcolumnFA()">Nova coluna</button>
-                <button type="button" onclick="deletecolumnFA()">Apagar última coluna</button>    
-                <button type="button" onclick="testAutomota()">Testar autômato</button>
             </div>
-            <hr style="width: 0;">
+            <hr>
+        </div>
+        <div style="margin-bottom:10px;"></div>
+
+        <button type="button" class="collapsible">Autômatos Finitos</button>
+        <div id="automata" class="content automata-content">
+            <div class="content-block" id="table-areaAF">
+                <table id="table-finite-automata">
+                    <tr>
+                        <th>Estados ↓ \ Caracteres →</th>
+                        <th><input type="text"></th>
+                        <th><input type="text"></th>
+                    </tr>
+                    <div class="tableRowAF">
+                        <tr>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </div>
+                
+                </table>
+                <hr style="width=0">
+                <div>
+                    <button type="button" onclick="addRowFA()">Nova linha</button>
+                    <button type="button" onclick="deleteRowFA()">Apagar última linha</button>
+                    <button type="button" onclick="addcolumnFA()">Nova coluna</button>
+                    <button type="button" onclick="deletecolumnFA()">Apagar última coluna</button>    
+                    <button type="button" onclick="testAutomota()">Testar autômato</button>
+                </div>
+                <hr style="width: 0;">
+            </div>
         </div>
     </div>
 
