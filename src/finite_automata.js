@@ -1,28 +1,30 @@
 const automataInterpreter = (automata, string, index=0, name='q0') => {
-    const params = {
-        automata: automata,
-        string: string,
-        index: index,
-        name: name
-    }
-    const states = params.automata.filter(state => 
-        state.name == name &&
-        (state.receives == params.string[params.index] || state.receives == '')
+    if(typeof string[index] == 'undefined') return false
+
+    const states = automata.filter(state => 
+        (state.receives === string[index] || state.receives === '')
+        && state.name === name
     )
-    let nextState
+    const length = states.length
+    const strLen = string.length
+    let nextStates
+    let nextLength
 
-    for(i = 0; i < states.length; i++) {
-        nextState = params.automata.filter(state => state.name == states[i].goesTo)
-        if(nextState.length == 0) return false
+    for(let i = 0; i < length; i++) {
+        nextStates = automata.filter(next => next.name === states[i].goesTo)
+        nextLength = nextStates.length
+        if(nextLength === 0) return false
 
-        if((params.index >= string.length -1) && (nextState[0].final === true)) return true
-        if((typeof params.string[params.index] === 'undefined') || (states[i].goesTo === null)) return false
+        for(let j = 0; j < nextLength; j++) {
+            if(nextStates[j].final && index === strLen-1) return true
+            if(automataInterpreter(automata, string, index+1, nextStates[j].name)) return true
+        }
 
-        if(automataInterpreter(params.automata, params.string, params.index+1, states[i].goesTo)) return true
     }
 
     return false
 }
+
 const tableFA = document.getElementById("table-finite-automata");
 
 function addcolumnFA() {
@@ -87,14 +89,52 @@ function tableToJsonFA(){
 }
 
 const testAutomota = () => {
-    const input = document.querySelector('#automata-test-input')
+    const inputs = document.querySelectorAll('.automata-test-input')
 
     const automata = tableToJsonFA()
-    const test = input.value
-    
-    const response = automataInterpreter(automata, test)
 
-    input.style.backgroundColor = response ? 'lightgreen' : 'salmon'
+    inputs.forEach(input => {
+        const test = input.value
+        console.log(automata)
+        
+        const response = automataInterpreter(automata, test)
+    
+        input.style.backgroundColor = response ? 'lightgreen' : 'salmon'
+    })
+}
+
+const createAutomataTestInput = () => {
+    const div = document.createElement('div')
+    div.className = 'automata-tests'
+
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.placeholder = "Insira string de teste"
+    input.style.width = "675px"
+    input.className = "automata-test-input"
+    input.addEventListener('input', e => {
+        e.target.style.backgroundColor = 'white'
+        e.target.style.border = '1px solid gray'
+        e.target.style.borderRadius = '2px'
+    })
+
+    const button = document.createElement('button')
+    button.innerHTML = '+'
+    button.addEventListener('click', e => newAutomataTest(e))
+
+    div.appendChild(input)
+    div.appendChild(button)
+    
+    document.querySelector('#table-areaAF').appendChild(div)
+}
+createAutomataTestInput()
+
+const newAutomataTest = ev => {
+    e = ev.target
+
+    createAutomataTestInput()
+
+    e.parentElement.removeChild(e)
 }
 
 
