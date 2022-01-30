@@ -207,7 +207,7 @@ const createAutomataTestInput = () => {
                     htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => Recebeu: ${step.state.receives} => Próximo estado: ${step.next.name} => ${step.message}</li>`
                     break
                 case 1:
-                    htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => Recebeu: ${step.state.receives} => Próxima chamada para: ${step.next.name}</li>`
+                    htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => Recebeu: ${step.state.receives} => Próximo estado: ${step.next.name}</li>`
                     break
                 case 3:
                     htmlSteps = `${htmlSteps}<li>Estado atual: ${step.state.name} => ${step.message}</li>`
